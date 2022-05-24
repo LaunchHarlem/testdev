@@ -1,0 +1,51 @@
+-- ETL LOAD AUDIT TABLES
+CREATE TABLE [dbo].[AuditPkgExecution](
+	[PkgExecKey] [int] IDENTITY(1,1) NOT NULL,
+	[PkgName] [varchar](50) NULL,
+	[PkgGUID] [uniqueidentifier] NULL,
+	[PkgVersionGUID] [uniqueidentifier] NULL,
+	[ExecStartDT] [datetime] NULL,
+	[ExecStopDT] [datetime] NULL,
+	[IsSuccessful] [bit] NULL,
+	[ExtractBeginDt] [datetime] NULL,
+	[ExtractEndDt] [datetime] NULL,
+ CONSTRAINT [PK_AuditPkgExecution] PRIMARY KEY CLUSTERED 
+(
+	[PkgExecKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[AuditTableProcessing](
+	[TableProcessKey] [int] IDENTITY(1,1) NOT NULL,
+	[PkgExecKey] [int] NOT NULL,
+	[TableName] [varchar](50) NOT NULL,
+	[LoadMethod] [varchar](50) NULL,
+	[ExtractRowCnt] [int] NULL,
+	[InsertStdRowCnt] [int] NULL,
+	[UpdateRowCnt] [int] NULL,
+	[ErrorRowCnt] [int] NULL,
+	[TableInitialRowCnt] [int] NULL,
+	[TableFinalRowCnt] [int] NULL,
+	[SuccessfullyLoadedRowCnt] [int] NULL,
+	[DeleteRowCnt] [int] NULL,
+	[IsSuccessful] [char](1) NULL,
+	[LoadStartDt] [datetime] NULL,
+	[LoadEndDt] [datetime] NULL,
+ CONSTRAINT [PK_AuditTableProcessing] PRIMARY KEY CLUSTERED 
+(
+	[TableProcessKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+--ETL PACKAGE CINFIGURATION TABLE
+CREATE TABLE [dbo].[SSISConfigurations](
+	[ConfigurationFilter] [nvarchar](255) NOT NULL,
+	[ConfiguredValue] [nvarchar](255) NULL,
+	[PackagePath] [nvarchar](255) NOT NULL,
+	[ConfiguredValueType] [nvarchar](20) NOT NULL
+) ON [PRIMARY]
+
+GO

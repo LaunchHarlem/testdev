@@ -1,10 +1,16 @@
-SELECT gender,
-       count(gender) AS Total_Students,
-       AVG(age) as Average_Age,
-       SUM(total_score) as Total_Score
+SELECT *
 
-FROM student
-GROUP BY gender
+FROM employee 
+
+SELECT employeeid,
+  'ACTIVE' as Active,
+  employeeid * 1.1,
+  UPPER(lastname),
+  len(lastname) as lengthoffirst
+  FROM employee;
+
+  select @@version,@@CONNECTIONS,@@SERVERNAME
+
 
 /*
 
